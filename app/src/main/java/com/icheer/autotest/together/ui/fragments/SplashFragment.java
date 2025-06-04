@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,6 @@ import com.icheer.autotest.together.R;
  * 使用 {@link SplashFragment#newInstance} 工厂方法创建实例
  */
 public class SplashFragment extends Fragment {
-
-    private static final String TAG = "SplashFragment";
 
     /**
      * 延迟跳转时间（毫秒）
@@ -114,18 +111,14 @@ public class SplashFragment extends Fragment {
                 HomeFragment homeFragment = new HomeFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, homeFragment);
-//                transaction.addToBackStack(null); // 添加到回退栈
+                transaction.addToBackStack(null); // 添加到回退栈
                 transaction.commit();
                 
                 // 显示ActionBar（在跳转到首页时）
                 showActionBar();
             } catch (Exception e) {
-                Log.e(TAG, "导航到Home界面时出错", e);
+                e.printStackTrace();
             }
-
-
-
-
         }
     }
 

@@ -1,4 +1,4 @@
-# MyAndroidApp - Android原生应用
+# andr_autotest - icheer 产测2.0 App
 
 这是一个基于Java语言开发的Android原生应用，使用传统XML布局和Fragment架构。
 
@@ -7,7 +7,6 @@
 - **语言**: Java
 - **架构**: Fragment + Activity
 - **UI**: 传统XML布局（不使用Jetpack Compose）
-- **导航**: BottomNavigationView
 - **最低SDK**: API 24 (Android 7.0)
 - **目标SDK**: API 34 (Android 14)
 
@@ -19,10 +18,7 @@ app/
 ├── src/main/
 │   ├── java/com/example/myapp/
 │   │   ├── MainActivity.java           # 主Activity
-│   │   └── ui/fragments/
-│   │       ├── HomeFragment.java       # 首页Fragment
-│   │       ├── DashboardFragment.java  # 仪表板Fragment
-│   │       └── SettingsFragment.java   # 设置Fragment
+│   │   └── ui/fragments/               # 存放Fragment
 │   ├── res/
 │   │   ├── layout/                     # XML布局文件
 │   │   ├── values/                     # 资源文件
@@ -37,23 +33,23 @@ app/
 应用采用Fragment架构设计，具有以下特点：
 
 1. **MainActivity**: 作为Fragment容器，管理底部导航
-2. **Fragment切换**: 通过BottomNavigationView实现无刷新页面切换
-3. **生命周期管理**: 每个Fragment独立管理自己的生命周期
-4. **内存优化**: Fragment复用，避免重复创建
+2. **生命周期管理**: 每个Fragment独立管理自己的生命周期
+3. **内存优化**: Fragment复用，避免重复创建
 
 ### 页面功能
 
-#### 1. 首页 (HomeFragment)
-- 欢迎界面和应用介绍
-- 功能卡片展示
-- 快速操作入口
+#### 1.  (SplashFragment)
+- 闪屏界面
 
-#### 2. 仪表板 (DashboardFragment)
+#### 2. 首页 (HomeFragment)
+- App主界面
+
+#### 3. 仪表板 (DashboardFragment)
 - 数据统计展示
 - 实时数据更新
 - 图表区域（可扩展）
 
-#### 3. 设置 (SettingsFragment)
+#### 4. 设置 (SettingsFragment)
 - 应用配置选项
 - 通知开关设置
 - 深色模式切换
@@ -166,12 +162,9 @@ app/
 - **用户反馈**: 收集和处理用户反馈
 - **Bug修复**: 及时修复发现的问题
 
-## 许可证
-
-本项目采用MIT许可证，详见LICENSE文件。
 
 ---
 
-**开发者**: Android原生应用团队  
+**开发者**: icheer 团队  
 **版本**: 1.0.0  
-**更新时间**: 2023年12月 
+**更新时间**: 2025年6月 
