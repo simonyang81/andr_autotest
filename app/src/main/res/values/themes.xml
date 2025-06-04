@@ -34,4 +34,12 @@
         <item name="android:windowFullscreen">false</item>
     </style>
     
+    <!-- 启动页进度条样式 -->
+    <style name="SplashProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/splash_progress_drawable</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressTint">@color/splash_progress_color</item>
+        <item name="android:progressBackgroundTint">@color/splash_progress_background</item>
+    </style>
+    
 </resources> 

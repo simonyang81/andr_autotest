@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Android App (Debug)",
+            "type": "shell",
+            "command": "./gradlew :app:assembleDebug --no-daemon",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gradle"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "GRADLE_OPTS": "-Dorg.gradle.daemon=false"
+                }
+            }
+        }
+    ]
+} 

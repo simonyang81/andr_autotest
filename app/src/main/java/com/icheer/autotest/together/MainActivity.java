@@ -6,11 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.icheer.autotest.together.ui.fragments.HomeFragment;
-import com.icheer.autotest.together.ui.fragments.DashboardFragment;
-import com.icheer.autotest.together.ui.fragments.SettingsFragment;
-import com.icheer.autotest.together.ui.fragments.SplashFragment;
+
+import com.icheer.autotest.together.ui.splash.view.SplashFragment;
 
 /**
  * 主Activity
@@ -28,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 初始化组件
         initViews();
-//        setupBottomNavigation();
         
         // 默认显示SplashFragment，并隐藏ActionBar
         if (savedInstanceState == null) {

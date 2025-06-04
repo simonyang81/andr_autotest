@@ -9,7 +9,8 @@
             "appSrcRoot": "${workspaceFolder}/app/src/main",
             "launchActivity": "com.icheer.autotest.together.MainActivity",
             "targetDevice": "${command:PickAndroidDevice}",
-            "apkFile": "${workspaceFolder}/app/build/outputs/apk/debug/app-debug.apk"
+            "apkFile": "${workspaceFolder}/app/build/outputs/apk/debug/app-debug.apk",
+            "preLaunchTask": "Build Android App (Debug)"
         }
     ]
 } 
