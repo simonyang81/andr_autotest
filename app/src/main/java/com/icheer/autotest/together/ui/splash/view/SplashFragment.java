@@ -6,29 +6,31 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.icheer.autotest.together.R;
-import com.icheer.autotest.together.ui.fragments.HomeFragment;
+import com.icheer.autotest.together.ui.base.view.BaseFragment;
+import com.icheer.autotest.together.ui.login.view.LoginFragment;
 
 /**
  * 启动页Fragment
  * 显示应用启动画面，模拟加载进度，完成后自动跳转到首页
  * 使用 {@link SplashFragment#newInstance} 工厂方法创建实例
+ *
+ * @author SIMON Y
+ * @version 1.0
+ * @since 2025
  */
-public class SplashFragment extends Fragment {
+public class SplashFragment extends BaseFragment {
 
     /**
      * 总的启动时间（毫秒）
      */
-    private static final int TOTAL_SPLASH_TIME = 3000;
+    private static final int TOTAL_SPLASH_TIME = 30000;
     private static final String TAG = "SplashFragment";
 
     /**
@@ -130,18 +132,6 @@ public class SplashFragment extends Fragment {
     }
 
     /**
-     * 隐藏ActionBar标题栏
-     */
-    private void hideActionBar() {
-        if (getActivity() != null && getActivity() instanceof AppCompatActivity) {
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.hide();
-            }
-        }
-    }
-
-    /**
      * 开始进度动画
      * 模拟应用加载过程，动态更新进度条和文字
      */
@@ -193,9 +183,9 @@ public class SplashFragment extends Fragment {
     private void navigateToHome() {
         if (getActivity() != null && isAdded()) {
             try {
-                HomeFragment homeFragment = new HomeFragment();
+                LoginFragment loginFragment = new LoginFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, homeFragment);
+                transaction.replace(R.id.fragment_container, loginFragment);
 //                transaction.addToBackStack(null); // 添加到回退栈
                 transaction.commit();
                 
@@ -207,42 +197,6 @@ public class SplashFragment extends Fragment {
         }
     }
 
-    /**
-     * 显示ActionBar标题栏
-     */
-    private void showActionBar() {
-        if (getActivity() != null && getActivity() instanceof AppCompatActivity) {
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-        }
-    }
-
-    /**
-     * 隐藏状态栏，设置全屏显示
-     */
-    private void hideStatusBar() {
-        if (getActivity() != null) {
-            View decorView = getActivity().getWindow().getDecorView();
-            // 设置全屏模式，隐藏状态栏和导航栏
-            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
-    }
-
-    /**
-     * 显示状态栏，恢复正常显示
-     */
-    private void showStatusBar() {
-        if (getActivity() != null) {
-            View decorView = getActivity().getWindow().getDecorView();
-            // 恢复正常显示模式
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -261,9 +215,6 @@ public class SplashFragment extends Fragment {
         super.onDestroyView();
 
         Log.d(TAG, "onDestroyView()");
-
-        // 恢复状态栏显示
-        showStatusBar();
 
         // 当视图被销毁时，取消延迟任务
         if (progressHandler != null && progressRunnable != null) {

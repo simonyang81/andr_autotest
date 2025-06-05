@@ -7,6 +7,15 @@
     <string name="nav_dashboard">仪表板</string>
     <string name="nav_settings">设置</string>
 
+    <!-- Login Fragment -->
+    <string name="login_title">系统登录</string>
+    <string name="login_subtitle">工业4.0智能监控系统 · 安全访问控制</string>
+    <string name="username_hint">用户名</string>
+    <string name="password_hint">密码</string>
+    <string name="login_button">登录系统</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="create_account">创建账号</string>
+
     <!-- Home Fragment -->
     <string name="home_title">欢迎使用MyApp</string>
     <string name="home_description">这是一个基于Fragment架构的Android原生应用\n使用传统XML布局和Java语言开发</string>

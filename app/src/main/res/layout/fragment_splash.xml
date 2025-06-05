@@ -7,6 +7,12 @@
     android:gravity="center"
     tools:context=".ui.splash.view.SplashFragment">
 
+    <!-- 背景装饰层 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background_pattern" />
+
     <!-- 主要内容容器 -->
     <LinearLayout
         android:id="@+id/main_content"

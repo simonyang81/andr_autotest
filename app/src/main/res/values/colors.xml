@@ -54,4 +54,16 @@
     <color name="splash_progress_background">#FF3D4A58</color>
     <color name="logo_background_color">#FF5A6B7C</color>
     
+    <!-- Login Screen Colors -->
+    <color name="login_background">#FF2B3A4A</color>
+    <color name="login_card_background">#FF3B4A5A</color>
+    <color name="login_title_color">#FF4DD0E1</color>
+    <color name="login_subtitle_color">#FF8FA5B8</color>
+    <color name="login_input_background">#FF4A5A6A</color>
+    <color name="login_input_text">#FFFFFFFF</color>
+    <color name="login_input_hint">#FF8FA5B8</color>
+    <color name="login_button_gradient_start">#FF26C6DA</color>
+    <color name="login_button_gradient_end">#FF4CAF50</color>
+    <color name="login_link_color">#FF4DD0E1</color>
+    
 </resources> 

@@ -1,19 +1,21 @@
 package com.icheer.autotest.together;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
+import androidx.navigation.internal.Log;
 
+import com.icheer.autotest.together.base.BaseActivity;
+import com.icheer.autotest.together.ui.login.view.LoginFragment;
 import com.icheer.autotest.together.ui.splash.view.SplashFragment;
 
 /**
  * 主Activity
  * 使用Fragment架构和底部导航进行页面管理
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 //    private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
@@ -60,29 +62,6 @@ public class MainActivity extends AppCompatActivity {
             actionBar.show();
         }
     }
-
-    /**
-     * 设置底部导航
-     */
-//    private void setupBottomNavigation() {
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//            Fragment selectedFragment = null;
-//            int itemId = item.getItemId();
-//
-//            if (itemId == R.id.nav_home) {
-//                selectedFragment = new HomeFragment();
-//            } else if (itemId == R.id.nav_dashboard) {
-//                selectedFragment = new DashboardFragment();
-//            } else if (itemId == R.id.nav_settings) {
-//                selectedFragment = new SettingsFragment();
-//            }
-//
-//            if (selectedFragment != null) {
-//                loadFragment(selectedFragment);
-//            }
-//            return true;
-//        });
-//    }
 
     /**
      * 加载Fragment到容器中
