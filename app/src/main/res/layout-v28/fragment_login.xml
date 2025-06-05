@@ -13,196 +13,208 @@
         android:layout_height="match_parent"
         android:background="@drawable/login_background_pattern" />
 
-    <!-- 主要内容容器 -->
-    <LinearLayout
-        android:id="@+id/main_content"
+    <!-- 可滚动的主要内容容器 -->
+    <ScrollView
+        android:id="@+id/main_content_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-        <!-- 登录卡片 - 调整宽度，更适合横屏 -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/login_card"
-            android:layout_width="480dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:outlineAmbientShadowColor="@android:color/black"
-            android:outlineSpotShadowColor="@android:color/black"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="32dp"
-            app:cardMaxElevation="36dp"
-            app:cardBackgroundColor="#AA3B4A5A"
-            app:cardUseCompatPadding="true">
+        <!-- 主要内容容器 -->
+        <LinearLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:minHeight="@dimen/min_layout_height">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- 登录卡片 - 调整宽度，更适合横屏 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/login_card"
+                android:layout_width="480dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_card_background"
-                android:orientation="vertical"
-                android:padding="40dp">
+                android:layout_gravity="center"
+                android:outlineAmbientShadowColor="@android:color/black"
+                android:outlineSpotShadowColor="@android:color/black"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="32dp"
+                app:cardMaxElevation="36dp"
+                app:cardBackgroundColor="#AA3B4A5A"
+                app:cardUseCompatPadding="true">
 
-                <!-- 工厂图标 - 使用统一的logo_background -->
-                <ImageView
-                    android:id="@+id/iv_logo"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/logo_background"
-                    android:contentDescription="工厂图标"
-                    android:padding="20dp"
-                    android:src="@drawable/ic_factory" />
-
-                <!-- 登录标题 -->
-                <TextView
-                    android:id="@+id/tv_login_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/login_title"
-                    android:textColor="@color/login_title_color"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <!-- 副标题 -->
-                <TextView
-                    android:id="@+id/tv_login_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="32dp"
-                    android:text="@string/login_subtitle"
-                    android:textColor="@color/login_subtitle_color"
-                    android:textSize="13sp"
-                    android:gravity="center" />
-
-                <!-- 用户名输入框 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/login_input_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:background="@drawable/login_card_background"
+                    android:orientation="vertical"
+                    android:padding="40dp">
 
+                    <!-- 工厂图标 - 使用统一的logo_background -->
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="12dp"
-                        android:src="@drawable/ic_person"
-                        android:contentDescription="用户图标" />
+                        android:id="@+id/iv_logo"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/logo_background"
+                        android:contentDescription="工厂图标"
+                        android:padding="20dp"
+                        android:src="@drawable/ic_factory" />
 
-                    <EditText
-                        android:id="@+id/et_username"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/username_hint"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/login_input_text"
-                        android:textColorHint="@color/login_input_hint"
-                        android:textSize="16sp"
-                        android:maxLines="1" />
-
-                </LinearLayout>
-
-                <!-- 密码输入框 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/login_input_background"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="12dp"
-                        android:src="@drawable/ic_lock"
-                        android:contentDescription="密码图标" />
-
-                    <EditText
-                        android:id="@+id/et_password"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/password_hint"
-                        android:inputType="textPassword"
-                        android:textColor="@color/login_input_text"
-                        android:textColorHint="@color/login_input_hint"
-                        android:textSize="16sp"
-                        android:maxLines="1" />
-
-                    <!-- 显示/隐藏密码切换按钮 -->
-                    <ImageView
-                        android:id="@+id/iv_password_toggle"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_visibility_off"
-                        android:contentDescription="显示隐藏密码"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:padding="2dp"
-                        android:clickable="true"
-                        android:focusable="true" />
-
-                </LinearLayout>
-
-                <!-- 登录按钮 -->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_login"
-                    style="@style/LoginButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/login_button" />
-
-                <!-- 底部链接区域 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <!-- 忘记密码链接 -->
+                    <!-- 登录标题 -->
                     <TextView
-                        android:id="@+id/tv_forgot_password"
-                        android:layout_width="0dp"
+                        android:id="@+id/tv_login_title"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="@string/forgot_password"
-                        android:textColor="@color/login_link_color"
-                        android:textSize="14sp"
-                        android:padding="4dp" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/login_title"
+                        android:textColor="@color/login_title_color"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                    <!-- 创建账号链接 -->
+                    <!-- 副标题 -->
                     <TextView
-                        android:id="@+id/tv_create_account"
-                        android:layout_width="0dp"
+                        android:id="@+id/tv_login_subtitle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/create_account"
-                        android:textColor="@color/login_link_color"
-                        android:textSize="14sp"
-                        android:padding="4dp" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="32dp"
+                        android:text="@string/login_subtitle"
+                        android:textColor="@color/login_subtitle_color"
+                        android:textSize="13sp"
+                        android:gravity="center" />
+
+                    <!-- 用户名输入框 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/login_input_background"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_person"
+                            android:contentDescription="用户图标" />
+
+                        <EditText
+                            android:id="@+id/et_username"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/username_hint"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/login_input_text"
+                            android:textColorHint="@color/login_input_hint"
+                            android:textSize="16sp"
+                            android:maxLines="1" />
+
+                    </LinearLayout>
+
+                    <!-- 密码输入框 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/login_input_background"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_lock"
+                            android:contentDescription="密码图标" />
+
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/password_hint"
+                            android:inputType="textPassword"
+                            android:textColor="@color/login_input_text"
+                            android:textColorHint="@color/login_input_hint"
+                            android:textSize="16sp"
+                            android:maxLines="1" />
+
+                        <!-- 显示/隐藏密码切换按钮 -->
+                        <ImageView
+                            android:id="@+id/iv_password_toggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_visibility_off"
+                            android:contentDescription="显示隐藏密码"
+                            android:background="?android:attr/selectableItemBackgroundBorderless"
+                            android:padding="2dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                    </LinearLayout>
+
+                    <!-- 登录按钮 -->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_login"
+                        style="@style/LoginButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/login_button" />
+
+                    <!-- 底部链接区域 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <!-- 忘记密码链接 -->
+                        <TextView
+                            android:id="@+id/tv_forgot_password"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text="@string/forgot_password"
+                            android:textColor="@color/login_link_color"
+                            android:textSize="14sp"
+                            android:padding="4dp" />
+
+                        <!-- 创建账号链接 -->
+                        <TextView
+                            android:id="@+id/tv_create_account"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@string/create_account"
+                            android:textColor="@color/login_link_color"
+                            android:textSize="14sp"
+                            android:padding="4dp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
 
     <!-- 全屏加载遮罩层 -->
     <FrameLayout

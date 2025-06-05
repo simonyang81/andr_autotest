@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 登录界面最小高度，确保在横屏模式下有足够空间 -->
+    <dimen name="min_layout_height">400dp</dimen>
+</resources>

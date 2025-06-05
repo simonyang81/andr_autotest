@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -190,6 +191,61 @@ public class LoginFragment extends BaseFragment {
         
         // 密码显示/隐藏切换按钮点击事件
         binding.ivPasswordToggle.setOnClickListener(v -> togglePasswordVisibility());
+
+        // 添加输入框焦点监听，当获得焦点时自动滚动到可见区域
+        setupFocusListeners();
+    }
+
+    /**
+     * 设置输入框焦点监听器
+     * 当输入框获得焦点时，确保它在软键盘弹出后仍然可见
+     */
+    private void setupFocusListeners() {
+        // 用户名输入框焦点监听
+        binding.etUsername.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                // 延迟滚动，确保软键盘已经弹出
+                binding.getRoot().postDelayed(() -> {
+                    scrollToView(binding.etUsername);
+                }, 200);
+            }
+        });
+
+        // 密码输入框焦点监听
+        binding.etPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                // 延迟滚动，确保软键盘已经弹出
+                binding.getRoot().postDelayed(() -> {
+                    scrollToView(binding.etPassword);
+                }, 200);
+            }
+        });
+    }
+
+    /**
+     * 滚动到指定视图，确保其在屏幕可见区域内
+     *
+     * @param targetView 目标视图
+     */
+    private void scrollToView(View targetView) {
+        if (targetView == null || !isAdded()) {
+            return;
+        }
+
+        try {
+            int[] location = new int[2];
+            targetView.getLocationInWindow(location);
+
+            // 获取ScrollView的位置
+            int[] scrollLocation = new int[2];
+            binding.mainContentScroll.getLocationInWindow(scrollLocation);
+
+            // 计算相对位置并滚动
+            int targetY = location[1] - scrollLocation[1];
+            binding.mainContentScroll.smoothScrollTo(0, targetY - 100); // 留一些边距
+        } catch (Exception e) {
+            Log.e(TAG, "滚动到目标视图失败: " + e.getMessage());
+        }
     }
 
     /**
