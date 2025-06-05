@@ -1,17 +1,15 @@
 package com.icheer.autotest.together.ui.login.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.icheer.autotest.together.R;
+import com.icheer.autotest.together.databinding.FragmentLoginBinding;
 import com.icheer.autotest.together.ui.base.view.BaseFragment;
 
 /**
@@ -27,13 +25,8 @@ public class LoginFragment extends BaseFragment {
 
     private static final String TAG = "LoginFragment";
 
+    private FragmentLoginBinding binding;
     
-    // UI组件
-    private EditText etUsername;
-    private EditText etPassword;
-    private Button btnLogin;
-    private TextView tvForgotPassword;
-    private TextView tvCreateAccount;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,55 +42,38 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * 创建Fragment视图
-     * 
-     * @param inflater 布局加载器
-     * @param container 父容器
+     *
+     * @param inflater           布局加载器
+     * @param container          父容器
      * @param savedInstanceState 保存的实例状态
      * @return 创建的视图
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // 加载登录界面布局
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-        
-        // 初始化UI组件
-        initViews(view);
-        
+
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
         // 设置点击事件监听器
         setupClickListeners();
-        
-        return view;
+
+        return binding.getRoot();
     }
     
-    /**
-     * 初始化UI组件
-     * 绑定布局中的视图元素
-     * 
-     * @param view 根视图
-     */
-    private void initViews(View view) {
-        etUsername = view.findViewById(R.id.et_username);
-        etPassword = view.findViewById(R.id.et_password);
-        btnLogin = view.findViewById(R.id.btn_login);
-        tvForgotPassword = view.findViewById(R.id.tv_forgot_password);
-        tvCreateAccount = view.findViewById(R.id.tv_create_account);
-    }
-    
+
     /**
      * 设置点击事件监听器
      * 为各个交互元素设置点击处理逻辑
      */
     private void setupClickListeners() {
         // 登录按钮点击事件
-        btnLogin.setOnClickListener(v -> onLoginButtonClicked());
+        binding.btnLogin.setOnClickListener(v -> onLoginButtonClicked());
         
         // 忘记密码链接点击事件
-        tvForgotPassword.setOnClickListener(v -> onForgotPasswordClicked());
+        binding.tvForgotPassword.setOnClickListener(v -> onForgotPasswordClicked());
         
         // 创建账号链接点击事件
-        tvCreateAccount.setOnClickListener(v -> onCreateAccountClicked());
+        binding.tvCreateAccount.setOnClickListener(v -> onCreateAccountClicked());
     }
     
     /**
@@ -105,9 +81,12 @@ public class LoginFragment extends BaseFragment {
      * TODO: 后续需要实现具体的登录逻辑
      */
     private void onLoginButtonClicked() {
+
+        Log.d(TAG, "-->> 点击了登录按钮");
+
         // 获取输入的用户名和密码
-        String username = etUsername.getText() != null ? etUsername.getText().toString().trim() : "";
-        String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
+        String username = binding.etUsername.getText() != null ? binding.etUsername.getText().toString().trim() : "";
+        String password = binding.etPassword.getText() != null ? binding.etPassword.getText().toString().trim() : "";
         
         // TODO: 实现登录验证逻辑
         // 1. 输入验证
@@ -127,6 +106,9 @@ public class LoginFragment extends BaseFragment {
      * TODO: 后续需要实现忘记密码功能
      */
     private void onForgotPasswordClicked() {
+
+        Log.d(TAG, "-->> 点击了忘记密码按钮");
+
         // TODO: 跳转到忘记密码页面或弹出对话框
         if (getContext() != null) {
             android.widget.Toast.makeText(getContext(), 
@@ -134,17 +116,18 @@ public class LoginFragment extends BaseFragment {
                 android.widget.Toast.LENGTH_SHORT).show();
         }
     }
-    
+
     /**
      * 处理创建账号链接点击事件
      * TODO: 后续需要实现注册功能
      */
     private void onCreateAccountClicked() {
+        Log.d(TAG, "-->> 点击了创建用户按钮");
         // TODO: 跳转到注册页面
         if (getContext() != null) {
-            android.widget.Toast.makeText(getContext(), 
-                "创建账号功能待实现", 
-                android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(getContext(),
+                    "创建账号功能待实现",
+                    android.widget.Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -174,10 +157,6 @@ public class LoginFragment extends BaseFragment {
         super.onDestroyView();
         
         // 清理引用，避免内存泄漏
-        etUsername = null;
-        etPassword = null;
-        btnLogin = null;
-        tvForgotPassword = null;
-        tvCreateAccount = null;
+        binding = null;
     }
 }

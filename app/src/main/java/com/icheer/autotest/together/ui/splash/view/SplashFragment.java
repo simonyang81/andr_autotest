@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.icheer.autotest.together.R;
+import com.icheer.autotest.together.databinding.FragmentSplashBinding;
 import com.icheer.autotest.together.ui.base.view.BaseFragment;
 import com.icheer.autotest.together.ui.login.view.LoginFragment;
 
@@ -30,8 +31,10 @@ public class SplashFragment extends BaseFragment {
     /**
      * 总的启动时间（毫秒）
      */
-    private static final int TOTAL_SPLASH_TIME = 30000;
+    private static final int TOTAL_SPLASH_TIME = 3000;
     private static final String TAG = "SplashFragment";
+
+    private FragmentSplashBinding binding;
 
     /**
      * 用于进度更新的Handler
@@ -42,16 +45,6 @@ public class SplashFragment extends BaseFragment {
      * 进度更新的Runnable
      */
     private Runnable progressRunnable;
-    
-    /**
-     * 进度条组件
-     */
-    private ProgressBar progressBar;
-    
-    /**
-     * 加载文字组件
-     */
-    private TextView loadingText;
     
     /**
      * 当前进度值
@@ -99,36 +92,27 @@ public class SplashFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // 加载启动页布局
-        View view = inflater.inflate(R.layout.fragment_splash, container, false);
+        binding = FragmentSplashBinding.inflate(inflater, container, false);
         
         // 初始化UI组件
-        initViews(view);
+        initViews();
         
         // 开始进度动画
         startProgressAnimation();
         
-        return view;
+        return binding.getRoot();
     }
 
     /**
      * 初始化视图组件
-     *
-     * @param view 根视图
      */
-    private void initViews(View view) {
-        progressBar = view.findViewById(R.id.progress_bar);
-        loadingText = view.findViewById(R.id.tv_loading);
-        
+    private void initViews() {
         // 设置初始状态
-        if (progressBar != null) {
-            progressBar.setProgress(0);
-        }
-        if (loadingText != null) {
-            loadingText.setText(loadingTexts[0]);
-        }
+        binding.progressBar.setProgress(0);
+        binding.tvLoading.setText(loadingTexts[0]);
     }
 
     /**
@@ -143,10 +127,8 @@ public class SplashFragment extends BaseFragment {
                 if (currentProgress < 100) {
                     // 更新进度条
                     currentProgress++;
-                    if (progressBar != null) {
-                        progressBar.setProgress(currentProgress);
-                    }
-                    
+                    binding.progressBar.setProgress(currentProgress);
+
                     // 根据进度更新加载文字
                     updateLoadingText();
                     
@@ -172,9 +154,7 @@ public class SplashFragment extends BaseFragment {
         
         // 显示当前进度百分比
         String displayText = loadingMessage + " " + currentProgress + "%";
-        if (loadingText != null) {
-            loadingText.setText(displayText);
-        }
+        binding.tvLoading.setText(displayText);
     }
 
     /**
@@ -186,7 +166,6 @@ public class SplashFragment extends BaseFragment {
                 LoginFragment loginFragment = new LoginFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, loginFragment);
-//                transaction.addToBackStack(null); // 添加到回退栈
                 transaction.commit();
                 
                 // 显示ActionBar（在跳转到首页时）

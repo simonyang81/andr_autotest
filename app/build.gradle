@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.icheer.autotest.together'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.icheer.autotest.together"
@@ -25,6 +25,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    viewBinding {
+        enabled = true
     }
 }
 

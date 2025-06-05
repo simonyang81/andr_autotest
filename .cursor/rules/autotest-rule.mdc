@@ -4,3 +4,4 @@ globs:
 alwaysApply: true
 ---
 - 使用安卓MVVM架构
+- 使用ViewBinding获取XML中的组件
