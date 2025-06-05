@@ -5,12 +5,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.icheer.autotest.together.R;
+import com.icheer.autotest.together.data.manager.UserSessionManager;
 import com.icheer.autotest.together.databinding.FragmentLoginBinding;
 import com.icheer.autotest.together.ui.base.view.BaseFragment;
+import com.icheer.autotest.together.ui.fragments.HomeFragment;
+import com.icheer.autotest.together.ui.login.viewmodel.LoginViewModel;
 
 /**
  * 登录界面Fragment
@@ -26,11 +33,22 @@ public class LoginFragment extends BaseFragment {
     private static final String TAG = "LoginFragment";
 
     private FragmentLoginBinding binding;
-    
+    private LoginViewModel loginViewModel;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 初始化会话管理器
+        UserSessionManager sessionManager = UserSessionManager.getInstance(requireContext());
+
+        // 检查是否已登录
+        if (sessionManager.isLoggedIn()) {
+            // 如果已登录，直接跳转到主页
+            navigateToHome();
+            return;
+        }
 
         // 隐藏ActionBar标题栏
         hideActionBar();
@@ -54,10 +72,109 @@ public class LoginFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
+
+        // 初始化ViewModel
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         // 设置点击事件监听器
         setupClickListeners();
 
+        // 观察ViewModel的LiveData
+        observeViewModel();
+
         return binding.getRoot();
+    }
+
+    private void observeViewModel() {
+
+        // 观察加载状态
+        loginViewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null) {
+                binding.btnLogin.setEnabled(!isLoading);
+                binding.btnLogin.setText(isLoading ? "登录中..." : "登录");
+                binding.loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        // 观察用户名错误
+        loginViewModel.getUsernameError().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null && getContext() != null) {
+                android.widget.Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 观察用户密码错误
+        loginViewModel.getPasswordError().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null && getContext() != null) {
+                android.widget.Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // 观察通用错误信息（网络错误、业务错误等）
+        loginViewModel.getErrorMessage().observe(getViewLifecycleOwner(), errorMessage -> {
+            if (errorMessage != null && getContext() != null) {
+                android.widget.Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 观察登录成功状态
+        loginViewModel.getLoginSuccess().observe(getViewLifecycleOwner(), isSuccess -> {
+            if (isSuccess != null) {
+                if (isSuccess) {
+                    // 处理登录成功
+                    onLoginSuccessful();
+                }
+                // 失败的情况已经在errorMessage中处理了
+            }
+        });
+
+    }
+
+    /**
+     * 处理登录成功
+     */
+    private void onLoginSuccessful() {
+        Log.d(TAG, "登录成功，准备跳转到主页");
+
+        // 显示成功提示
+        if (getContext() != null) {
+            Toast.makeText(getContext(), "登录成功！欢迎使用", Toast.LENGTH_SHORT).show();
+        }
+
+        // 清除输入框内容（可选）
+        // clearInputFields();
+
+        // 延迟跳转，让用户看到成功提示
+        binding.getRoot().postDelayed(this::navigateToHome, 500);
+    }
+
+    /**
+     * 跳转到主页
+     */
+    private void navigateToHome() {
+        if (getActivity() != null && isAdded()) {
+            try {
+                // 创建主页Fragment
+                HomeFragment homeFragment = new HomeFragment();
+
+                // 执行Fragment切换
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, homeFragment);
+                transaction.commit();
+
+                // 显示ActionBar（主页需要显示）
+//                showActionBar();
+
+                Log.d(TAG, "成功跳转到主页");
+
+            } catch (Exception e) {
+                Log.e(TAG, "跳转到主页失败: " + e.getMessage());
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "页面跳转失败，请重试", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
     
 
@@ -87,18 +204,21 @@ public class LoginFragment extends BaseFragment {
         // 获取输入的用户名和密码
         String username = binding.etUsername.getText() != null ? binding.etUsername.getText().toString().trim() : "";
         String password = binding.etPassword.getText() != null ? binding.etPassword.getText().toString().trim() : "";
+
+        // 调用ViewModel执行登录
+        loginViewModel.login(username, password);
         
-        // TODO: 实现登录验证逻辑
-        // 1. 输入验证
-        // 2. 调用ViewModel进行登录
-        // 3. 处理登录结果
-        
-        // 临时提示 - 后续可删除
-        if (getContext() != null) {
-            android.widget.Toast.makeText(getContext(), 
-                "登录功能待实现 - 用户名: " + username, 
-                android.widget.Toast.LENGTH_SHORT).show();
-        }
+//        // TODO: 实现登录验证逻辑
+//        // 1. 输入验证
+//        // 2. 调用ViewModel进行登录
+//        // 3. 处理登录结果
+//
+//        // 临时提示 - 后续可删除
+//        if (getContext() != null) {
+//            android.widget.Toast.makeText(getContext(),
+//                "登录功能待实现 - 用户名: " + username,
+//                android.widget.Toast.LENGTH_SHORT).show();
+//        }
     }
     
     /**
