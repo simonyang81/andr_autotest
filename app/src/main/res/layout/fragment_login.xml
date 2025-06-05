@@ -139,6 +139,19 @@
                         android:textSize="16sp"
                         android:maxLines="1" />
 
+                    <!-- 显示/隐藏密码切换按钮 -->
+                    <ImageView
+                        android:id="@+id/iv_password_toggle"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_visibility_off"
+                        android:contentDescription="显示隐藏密码"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:padding="2dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
                 </LinearLayout>
 
                 <!-- 登录按钮 -->
