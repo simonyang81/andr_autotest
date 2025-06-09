@@ -1,19 +1,18 @@
-package com.icheer.autotest.together.ui.login.viewmodel;
+package com.icheer.autotest.together.ui.auth.viewmodel;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.icheer.autotest.together.data.manager.UserSessionManager;
 import com.icheer.autotest.together.data.model.base.BaseResponse;
 import com.icheer.autotest.together.data.model.login.LoginResponse;
-import com.icheer.autotest.together.data.repository.login.AuthRepository;
+import com.icheer.autotest.together.data.repository.auth.AuthRepository;
+import com.icheer.autotest.together.ui.base.viewmodel.BaseViewModel;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 /**
  * 登录页面的ViewModel
@@ -23,23 +22,21 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
  * @version 1.0
  * @since 2025
  */
-public class LoginViewModel extends AndroidViewModel {
+public class AuthViewModel extends BaseViewModel {
 
-    private static final String TAG = "LoginViewModel";
+    private static final String TAG = "AuthViewModel";
 
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
-
     private final MutableLiveData<String> usernameError = new MutableLiveData<>();
     private final MutableLiveData<String> passwordError = new MutableLiveData<>();
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private final MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
-    private final CompositeDisposable disposables = new CompositeDisposable();
 
     private final AuthRepository authRepository;
 
     private final UserSessionManager sessionManager;
 
-    public LoginViewModel(@NonNull Application application) {
+    public AuthViewModel(@NonNull Application application) {
         super(application);
         this.authRepository = AuthRepository.getInstance(application);
         this.sessionManager = UserSessionManager.getInstance(application);
@@ -55,18 +52,18 @@ public class LoginViewModel extends AndroidViewModel {
             return;
         }
 
-        // 执行登录请求
-        disposables.add(
-                authRepository.login(username, password)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                this::onLoginSuccess,
-                                this::onLoginError
-                        )
-        );
-
         // 显示加载状态
         isLoading.setValue(true);
+
+        // 执行登录请求
+        disposables.add(
+            authRepository
+                .login(username, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    this::onLoginSuccess,
+                    this::onLoginError)
+        );
 
     }
 

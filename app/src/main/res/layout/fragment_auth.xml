@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
-    tools:context=".ui.login.view.LoginFragment">
+    tools:context=".ui.auth.view.AuthFragment">
 
     <!-- 背景装饰层 -->
     <View
@@ -37,8 +37,6 @@
                 android:layout_width="480dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:outlineAmbientShadowColor="@android:color/black"
-                android:outlineSpotShadowColor="@android:color/black"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="32dp"
                 app:cardMaxElevation="36dp"
@@ -214,7 +212,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
     <!-- 全屏加载遮罩层 -->
     <FrameLayout

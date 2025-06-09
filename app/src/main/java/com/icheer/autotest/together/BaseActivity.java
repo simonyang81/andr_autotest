@@ -1,4 +1,4 @@
-package com.icheer.autotest.together.base;
+package com.icheer.autotest.together;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

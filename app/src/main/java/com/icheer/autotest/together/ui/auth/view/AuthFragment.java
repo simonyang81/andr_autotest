@@ -1,4 +1,4 @@
-package com.icheer.autotest.together.ui.login.view;
+package com.icheer.autotest.together.ui.auth.view;
 
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,10 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.icheer.autotest.together.R;
 import com.icheer.autotest.together.data.manager.UserSessionManager;
-import com.icheer.autotest.together.databinding.FragmentLoginBinding;
+import com.icheer.autotest.together.databinding.FragmentAuthBinding;
 import com.icheer.autotest.together.ui.base.view.BaseFragment;
-import com.icheer.autotest.together.ui.fragments.HomeFragment;
-import com.icheer.autotest.together.ui.login.viewmodel.LoginViewModel;
+import com.icheer.autotest.together.ui.auth.viewmodel.AuthViewModel;
+import com.icheer.autotest.together.ui.home.view.HomeFragment;
 
 /**
  * 登录界面Fragment
@@ -31,12 +30,12 @@ import com.icheer.autotest.together.ui.login.viewmodel.LoginViewModel;
  * @version 1.0
  * @since 2025
  */
-public class LoginFragment extends BaseFragment {
+public class AuthFragment extends BaseFragment {
 
-    private static final String TAG = "LoginFragment";
+    private static final String TAG = "AuthFragment";
 
-    private FragmentLoginBinding binding;
-    private LoginViewModel loginViewModel;
+    private FragmentAuthBinding binding;
+    private AuthViewModel loginViewModel;
     
     /** 密码是否可见的状态标志 */
     private boolean isPasswordVisible = false;
@@ -75,10 +74,10 @@ public class LoginFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        binding = FragmentAuthBinding.inflate(inflater, container, false);
 
         // 初始化ViewModel
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         // 设置点击事件监听器
         setupClickListeners();

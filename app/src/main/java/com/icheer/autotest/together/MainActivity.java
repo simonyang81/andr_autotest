@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
-import androidx.navigation.internal.Log;
 
-import com.icheer.autotest.together.base.BaseActivity;
-import com.icheer.autotest.together.ui.login.view.LoginFragment;
 import com.icheer.autotest.together.ui.splash.view.SplashFragment;
 
 /**

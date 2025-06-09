@@ -13,6 +13,21 @@
         android:layout_height="match_parent"
         android:background="@drawable/login_background_pattern" />
 
+    <!-- 左上角设置按钮 -->
+    <ImageButton
+        android:id="@+id/btn_settings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_settings"
+        android:contentDescription="系统设置"
+        android:scaleType="center"
+        android:tint="@color/splash_title_color"
+        android:padding="12dp" />
+
     <!-- 主要内容容器 -->
     <LinearLayout
         android:id="@+id/main_content"
@@ -45,17 +60,113 @@
             android:gravity="center"
             android:layout_marginBottom="16dp" />
 
-        <!-- 副标题 -->
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <!-- 右侧状态面板 -->
+    <LinearLayout
+        android:id="@+id/status_panel"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/status_panel_background"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        android:alpha="0.0">
+
+        <!-- 用户名显示 -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="工业4.0智能监控系统 · 实时数据分析 · 全自动化流程控制"
-            android:textColor="@color/splash_subtitle_color"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_marginBottom="64dp"
-            android:alpha="0.8" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户："
+                android:textColor="@color/status_panel_label_color"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="eamy220"
+                android:textColor="@color/status_panel_value_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- 系统状态 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="系统状态"
+                android:textColor="@color/status_panel_label_color"
+                android:textSize="14sp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:id="@+id/tv_system_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已就绪"
+                android:textColor="@color/status_success_color"
+                android:textSize="14sp"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <!-- 连接状态 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="连接状态"
+                android:textColor="@color/status_panel_label_color"
+                android:textSize="14sp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:id="@+id/tv_connection_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已连接"
+                android:textColor="@color/status_success_color"
+                android:textSize="14sp"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <!-- 重新初始化按钮 -->
+        <Button
+            android:id="@+id/btn_reinitialize"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="重新初始化"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/reinitialize_button_background"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
@@ -76,19 +187,101 @@
             android:id="@+id/tv_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="初始化中... 83%"
+            android:text="初始化中... 0%"
             android:textColor="@color/splash_loading_text_color"
             android:textSize="14sp"
             android:layout_marginBottom="16dp" />
 
-        <!-- 加载进度条 -->
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/SplashProgressBar"
+        <!-- 分段进度条容器 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:progress="83"
-            android:max="100" />
+            android:layout_height="8dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <!-- 固件编码 -->
+            <View
+                android:id="@+id/progress_segment_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/progress_segment_background" />
+
+            <!-- 网络检测进度段 -->
+            <View
+                android:id="@+id/progress_segment_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/progress_segment_background" />
+
+            <!-- 硬件检测进度段 -->
+            <View
+                android:id="@+id/progress_segment_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/progress_segment_background" />
+
+            <!-- 服务器检测进度段 -->
+            <View
+                android:id="@+id/progress_segment_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/progress_segment_background" />
+
+        </LinearLayout>
+
+        <!-- 检测项目标签 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="固件编码"
+                android:textColor="@color/splash_loading_text_color"
+                android:textSize="10sp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="网络"
+                android:textColor="@color/splash_loading_text_color"
+                android:textSize="10sp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="硬件"
+                android:textColor="@color/splash_loading_text_color"
+                android:textSize="10sp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="服务器"
+                android:textColor="@color/splash_loading_text_color"
+                android:textSize="10sp"
+                android:gravity="center" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -66,4 +66,13 @@
     <color name="login_button_gradient_end">#FF4CAF50</color>
     <color name="login_link_color">#FF4DD0E1</color>
     
+    <!-- 状态面板颜色 -->
+    <color name="status_panel_background">#DD3B4A5A</color>
+    <color name="status_panel_label_color">#FF8FA5B8</color>
+    <color name="status_panel_value_color">#FFFFFFFF</color>
+    <color name="status_success_color">#FF4CAF50</color>
+    <color name="status_error_color">#FFF44336</color>
+    <color name="status_warning_color">#FFFF9800</color>
+    <color name="reinitialize_button_color">#FF5A6B7C</color>
+    
 </resources> 

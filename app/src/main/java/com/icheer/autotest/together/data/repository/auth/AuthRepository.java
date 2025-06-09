@@ -1,4 +1,4 @@
-package com.icheer.autotest.together.data.repository.login;
+package com.icheer.autotest.together.data.repository.auth;
 
 import android.content.Context;
 import android.util.Log;
