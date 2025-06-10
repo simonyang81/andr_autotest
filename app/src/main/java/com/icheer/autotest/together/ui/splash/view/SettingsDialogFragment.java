@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.icheer.autotest.together.R;
 import com.icheer.autotest.together.databinding.FragmentSettingsBinding;
 import com.icheer.autotest.together.ui.splash.viewmodel.SettingsViewModel;
 
@@ -107,6 +109,9 @@ public class SettingsDialogFragment extends DialogFragment {
 
         // 观察ViewModel的LiveData
         observeViewModel();
+
+        // 启动进入动画
+        startEnterAnimation();
 
         return binding.getRoot();
     }
@@ -203,6 +208,66 @@ public class SettingsDialogFragment extends DialogFragment {
 
     }
 
+    /**
+     * 启动进入动画
+     */
+    private void startEnterAnimation() {
+        if (binding != null) {
+            // 背景淡入动画
+            binding.dialogBackground.startAnimation(
+                    AnimationUtils.loadAnimation(getContext(), R.anim.fade_in)
+            );
+
+            // 内容卡片滑入动画
+            binding.contentCard.startAnimation(
+                    AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_up)
+            );
+        }
+    }
+
+    /**
+     * 启动退出动画并关闭对话框
+     */
+    private void startExitAnimationAndDismiss() {
+        if (binding != null && getContext() != null) {
+            // 背景淡出动画
+            android.view.animation.Animation backgroundFadeOut =
+                    AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+
+            // 内容卡片滑出动画
+            android.view.animation.Animation cardSlideOut =
+                    AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_down);
+
+            // 设置动画结束监听器
+            cardSlideOut.setAnimationListener(new android.view.animation.Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(android.view.animation.Animation animation) {
+                    // 动画开始时不做任何操作
+                }
+
+                @Override
+                public void onAnimationEnd(android.view.animation.Animation animation) {
+                    // 动画结束后关闭对话框
+                    if (isAdded() && !isStateSaved()) {
+                        dismiss();
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(android.view.animation.Animation animation) {
+                    // 动画重复时不做任何操作
+                }
+            });
+
+            // 启动动画
+            binding.dialogBackground.startAnimation(backgroundFadeOut);
+            binding.contentCard.startAnimation(cardSlideOut);
+        } else {
+            // 如果无法播放动画，直接关闭
+            dismiss();
+        }
+    }
+
     private void onResetSettingsClicked() {
         settingsViewModel.resetSettings();
     }
@@ -212,7 +277,7 @@ public class SettingsDialogFragment extends DialogFragment {
      */
     private void onCloseButtonClicked() {
         Log.d(TAG, "关闭设置对话框");
-        dismiss();
+        startExitAnimationAndDismiss();
     }
 
     /**
@@ -230,9 +295,6 @@ public class SettingsDialogFragment extends DialogFragment {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
 
 }

@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:fitsSystemWindows="false"
-    tools:context=".ui.settings.view.SettingsDialogFragment">
+    tools:context=".ui.splash.view.SettingsDialogFragment">
 
     <!-- 内容卡片 -->
     <androidx.cardview.widget.CardView
