@@ -1,7 +1,6 @@
 package com.icheer.autotest.together.ui.splash.view;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -30,42 +29,11 @@ import com.icheer.autotest.together.ui.splash.viewmodel.SplashViewModel;
  */
 public class SplashFragment extends BaseFragment {
 
-    /**
-     * 总的启动时间（毫秒）
-     */
-//    private static final int TOTAL_SPLASH_TIME = 3000;
     private static final String TAG = "SplashFragment";
 
     private FragmentSplashBinding binding;
 
     private SplashViewModel splashViewModel;
-
-    /**
-     * 用于进度更新的Handler
-     */
-    private Handler progressHandler;
-    
-    /**
-     * 进度更新的Runnable
-     */
-    private Runnable progressRunnable;
-    
-    /**
-     * 当前进度值
-     */
-    private int currentProgress = 0;
-    
-    /**
-     * 加载文字数组
-     */
-    private String[] loadingTexts = {
-        "初始化系统...",
-        "加载配置文件...",
-        "连接数据库...",
-        "检查网络连接...",
-        "加载用户界面...",
-        "启动完成！"
-    };
 
     public SplashFragment() {
         Log.d("SplashFragment", "SplashFragment constructor");
@@ -106,9 +74,8 @@ public class SplashFragment extends BaseFragment {
         // 初始化UI组件
         initViews();
 
-        
-//        // 开始进度动画
-//        startProgressAnimation();
+        // 设置监听
+        setupClickListeners();
 
         // 观察ViewModel的LiveData
         observeViewModel();
@@ -121,57 +88,17 @@ public class SplashFragment extends BaseFragment {
      */
     private void initViews() {
         // 设置初始状态
-//        binding.progressBar.setProgress(0);
-//        binding.tvLoading.setText(loadingTexts[0]);
-
         splashViewModel.checkDeviceState();
 
     }
 
-
-
-
-    /**
-     * 开始进度动画
-     * 模拟应用加载过程，动态更新进度条和文字
-     */
-//    private void startProgressAnimation() {
-//        progressHandler = new Handler(Looper.getMainLooper());
-//        progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (currentProgress < 100) {
-//                    // 更新进度条
-//                    currentProgress++;
-//                    binding.progressBar.setProgress(currentProgress);
-//
-//                    // 根据进度更新加载文字
-//                    updateLoadingText();
-//
-//                    // 继续更新
-//                    progressHandler.postDelayed(this, TOTAL_SPLASH_TIME / 100);
-//                } else {
-//                    // 进度完成，跳转到首页
-//                    navigateToHome();
-//                }
-//            }
-//        };
-//
-//        // 开始执行进度更新
-//        progressHandler.post(progressRunnable);
-//    }
-
-    /**
-     * 根据当前进度更新加载文字
-     */
-    private void updateLoadingText() {
-        int textIndex = Math.min(currentProgress / 17, loadingTexts.length - 1);
-        String loadingMessage = loadingTexts[textIndex];
-        
-        // 显示当前进度百分比
-        String displayText = loadingMessage + " " + currentProgress + "%";
-        binding.tvLoading.setText(displayText);
+    private void setupClickListeners() {
+        binding.btnSettings.setOnClickListener(v -> {
+            SettingsDialogFragment settingsDialogFragment = SettingsDialogFragment.newInstance();
+            settingsDialogFragment.show(getParentFragmentManager(), "SettingsDialog");
+        });
     }
+
 
     /**
      * 跳转到首页Fragment
@@ -245,10 +172,6 @@ public class SplashFragment extends BaseFragment {
 
         Log.d(TAG, "onDestroy()");
 
-        // 清理Handler和Runnable，防止内存泄漏
-        if (progressHandler != null && progressRunnable != null) {
-            progressHandler.removeCallbacks(progressRunnable);
-        }
     }
 
     @Override
@@ -257,9 +180,5 @@ public class SplashFragment extends BaseFragment {
 
         Log.d(TAG, "onDestroyView()");
 
-        // 当视图被销毁时，取消延迟任务
-        if (progressHandler != null && progressRunnable != null) {
-            progressHandler.removeCallbacks(progressRunnable);
-        }
     }
 }
